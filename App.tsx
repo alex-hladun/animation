@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import { ThemeProvider } from "@material-ui/styles";
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import muiTheme from "./assets/muiTheme";
+import useCachedResources from "./hooks/useCachedResources";
+import useColorScheme from "./hooks/useColorScheme";
+import Navigation from "./navigation";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -15,8 +16,10 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+        <ThemeProvider theme={muiTheme}>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
+        </ThemeProvider>
       </SafeAreaProvider>
     );
   }

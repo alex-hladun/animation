@@ -9,7 +9,7 @@ import {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    amount: {
+    number: {
       fontSize: 50
     }
   })
@@ -20,20 +20,10 @@ const NumberEntry = () => {
   const [amount, setAmount] = useState();
   const [endNumber, setEndNumber] = useState(100);
 
-  // const { color, number, height } = useSpring({
-  //   from: { color: intial.color, number: 50, height: 400 },
-  //   color: toColor,
-  //   number: endNumber,
-  //   height: toHeight,
-  //   config: config.slow
-  // });
-
   const onChangeAmount = (
     event: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (Number(event.target.value)) {
-      setAmount(event.target.value);
-    }
+    setAmount(event.target.value);
   };
 
   const { start, end } = useMemo(() => {
@@ -41,8 +31,14 @@ const NumberEntry = () => {
     let end = "00";
     if (amount?.toString()) {
       end = amount.toString().substr(amount.toString().length - 2, 2);
-      start = amount.toString().substr(0, amount.toString().length - 2);
-      console.log("🚀 ~ file: NumberEntry.tsx ~ line 44 ~ array", start, end);
+      if (end.length === 1) {
+        end = `0${end}`;
+      }
+      if (amount.toString().length >= 3) {
+        start = amount.toString().substr(0, amount.toString().length - 2);
+        console.log("🚀 ~ file: NumberEntry.tsx ~ line 44 ~ array", start, end);
+      }
+    } else {
     }
     return { start, end };
   }, [amount]);
@@ -57,8 +53,8 @@ const NumberEntry = () => {
       }}
     >
       <div>
-        <Input value={amount} onChange={onChangeAmount} />
-        <Typography>
+        <Input value={amount} onChange={onChangeAmount} type="number" />
+        <Typography className={classes.number}>
           ${start}.{end}
         </Typography>
       </div>
