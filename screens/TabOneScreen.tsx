@@ -5,6 +5,7 @@ import { useSpring, animated, config, to } from "react-spring";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
+import NumberEntry from "../components/NumberEntry/NumberEntry";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const intial = {
-  color: "#16DB93"
+  color: "rgb(255, 0, 0)"
 };
 
 const final = {
@@ -39,17 +40,27 @@ const Demo = () => {
   const [max, setMax] = useState(500);
   const [min, setMin] = useState(0);
 
-  const toColor = useMemo(() => {}, []);
-
   const toHeight = useMemo(() => {
-    const newHeight = max * ((max - endNumber) / (max - min));
-    console.log("🚀 ~ file: TabOneScreen.tsx ~ line 46 ~ newHeight", newHeight);
+    const newHeight = max * ((endNumber - min) / (max - min));
+    // console.log("🚀 ~ file: TabOneScreen.tsx ~ line 46 ~ newHeight", newHeight);
     return newHeight;
+  }, [endNumber]);
+
+  const toColor = useMemo(() => {
+    const greenPercentage = 255 * ((endNumber - 0) / (255 - 0));
+    const redPercentage = 255 * ((255 - endNumber) / (255 - 0));
+    console.log(
+      "🚀 ~ file: TabOneScreen.tsx ~ line 50 ~ greenPercentage",
+      greenPercentage
+    );
+    const color = `rgb(${redPercentage}, ${greenPercentage}, 0)`;
+    console.log("🚀 ~ file: TabOneScreen.tsx ~ line 51 ~ color", color);
+    return color;
   }, [endNumber]);
 
   const { color, number, height } = useSpring({
     from: { color: intial.color, number: 50, height: 400 },
-    color: final.color,
+    color: toColor,
     number: endNumber,
     height: toHeight,
     config: config.slow
@@ -67,6 +78,9 @@ const Demo = () => {
     >
       <div>
         <button onClick={() => setEndNumber(500)}>$500</button>
+        <button onClick={() => setEndNumber(400)}>$400</button>
+        <button onClick={() => setEndNumber(300)}>$300</button>
+        <button onClick={() => setEndNumber(200)}>$200</button>
         <button onClick={() => setEndNumber(100)}>$100</button>
         <button onClick={() => setEndNumber(0)}>$0</button>
       </div>
@@ -88,8 +102,8 @@ export default function TabOneScreen({
 }: RootTabScreenProps<"TabOne">) {
   return (
     <View style={styles.container}>
+      <NumberEntry />
       <Demo />
-      {/* <Demo2 /> */}
     </View>
   );
 }
