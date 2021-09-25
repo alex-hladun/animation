@@ -41,6 +41,7 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
   const PanObj = useRef(new Animated.ValueXY()).current;
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
+  const [hoverCategory, setHoverCategory] = useState("");
 
   const onChooseItem = (item) => {
     console.log("🚀 ~ file: Picker.tsx ~ line 46 ~ item", item);
@@ -94,7 +95,13 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
         // gestureState.d{x,y} will be set to zero now
       },
       onPanResponderMove: (evt, gestureState) => {
-        console.log("🚀 ~ ~ onPanResponderMove", evt, gestureState);
+        console.log(
+          "🚀 ~ ~ onPanResponderMove",
+          // evt,
+          // gestureState,
+
+          setHoverCategory(evt.target.textContent)
+        );
         // return Animated.event([null, { dx: PanObj.x, dy: PanObj.y }]);
         // return true;
       },
@@ -109,7 +116,7 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
       //   return true;
       // },
       onPanResponderRelease: (evt, gestureState) => {
-        PanObj.flattenOffset();
+        setSelectedItem(evt.target.textContent);
         setOpen(false);
 
         console.log("🚀 ~onPanResponderRelease", evt, gestureState);
@@ -138,7 +145,15 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
     <>
       <View>
         <TouchableOpacity>
-          <View style={classes.button} {...panResponder.panHandlers}>
+          <View
+            style={classes.button}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            onMouseDown={onTouchStart}
+            onMouseUp={onTouchEnd}
+            ref={PanObj}
+            {...panResponder.panHandlers}
+          >
             <Text style={classes.buttonText}>{categoryName}</Text>
           </View>
           {open && (
@@ -148,13 +163,14 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
                   key={item.id}
                   item={item}
                   index={index}
+                  hoveredItem={hoverCategory}
                   setSelectedItem={onChooseItem}
                   onTouchEnd={onTouchEnd}
                 />
               ))}
             </View>
           )}
-          <Text>Category: {selectedItem?.name || ""}</Text>
+          <Text>Category: {selectedItem || ""}</Text>
         </TouchableOpacity>
       </View>
     </>

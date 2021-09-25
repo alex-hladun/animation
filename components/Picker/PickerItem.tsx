@@ -17,6 +17,9 @@ const classes = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     padding: 10
+  },
+  hover: {
+    backgroundColor: theme.main.greyBlue
   }
 });
 
@@ -25,12 +28,15 @@ interface Props {
   setSelectedItem: (index: number) => void;
   onTouchEnd: (event: any) => void;
   index: number;
+  hoveredItem: string;
 }
+
 const PickerItem: FC<Props> = ({
   item,
   setSelectedItem,
   index,
-  onTouchEnd
+  onTouchEnd,
+  hoveredItem
 }: Props) => {
   // const classes = useStyles();
 
@@ -44,7 +50,12 @@ const PickerItem: FC<Props> = ({
 
   return (
     <>
-      <View style={classes.container}>
+      <View
+        style={[classes.container, item.name === hoveredItem && classes.hover]}
+        onMouseUp={handleMouseUp}
+        onTouchMove={handleStart}
+        onTouchEnd={onTouchEnd}
+      >
         <Text>{item.name}</Text>
       </View>
     </>
