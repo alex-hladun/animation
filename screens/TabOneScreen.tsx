@@ -55,50 +55,10 @@ const discretionaryList: BudgetCategory[] = [
 export default function TabOneScreen({
   navigation
 }: RootTabScreenProps<"TabOne">) {
-  const [tR, setTR] = useState();
-
-  useEffect(() => {
-    const prr = PanResponder.create({
-      // Ask to be the responder:
-      onStartShouldSetPanResponder: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-          gestureState
-        );
-        return false;
-      },
-      // onStartShouldSetPanResponderCapture: (evt, gestureState) => {
-      //   console.log(
-      //     "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-      //     gestureState
-      //   );
-      //   return true;
-      // },
-      onMoveShouldSetPanResponder: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-          gestureState
-        );
-        return true;
-
-        // onPanResponderMove: (evt, gestureState) => {
-        //   console.log(
-        //     "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-        //     gestureState
-        //   );
-        //   return true;
-        // }
-      }
-    });
-    setTR(prr);
-  }, []);
-
   return (
-    <View style={styles.container} {...tR?.panHandlers}>
-      <ReactSpringDemo />
-      {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
-      {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
-      {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
+    <View style={styles.container}>
+      {/* <ReactSpringDemo /> */}
+      <Picker list={discretionaryList} categoryName="Discretionary" />
       {/* <NumberEntry /> */}
     </View>
   );

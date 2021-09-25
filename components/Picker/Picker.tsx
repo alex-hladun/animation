@@ -3,7 +3,7 @@ import React, { useState, FC, useRef } from "react";
 import PickerItem from "./PickerItem";
 import ColorTheme from "../../assets/ColorTheme/";
 import { Text } from "../Themed";
-import { View, StyleSheet, PanResponder } from "react-native";
+import { View, StyleSheet, PanResponder, Animated } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const classes = StyleSheet.create({
@@ -38,10 +38,12 @@ interface Props {
   categoryName: string;
 }
 const Picker: FC<Props> = ({ list, categoryName }: Props) => {
+  const PanObj = useRef(new Animated.ValueXY()).current;
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
 
   const onChooseItem = (item) => {
+    console.log("🚀 ~ file: Picker.tsx ~ line 46 ~ item", item);
     setSelectedItem(item);
   };
 
@@ -71,87 +73,72 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
       //   return true;
       // },
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-          gestureState
-        );
+        console.log("🚀 ~ fonMoveShouldSetPanRespondere", gestureState);
         return true;
       },
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-          gestureState
-        );
-        return true;
-      },
+      // onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+      //   console.log(
+      //     "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
+      //     gestureState
+      //   );
+      //   return true;
+      // },
 
       onPanResponderGrant: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-          gestureState
-        );
-        return true;
+        console.log("🚀 ~ onPanResponderGrant", gestureState);
+        setOpen(true);
+        // return true;
 
         // The gesture has started. Show visual feedback so the user knows
         // what is happening!
         // gestureState.d{x,y} will be set to zero now
       },
       onPanResponderMove: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-          gestureState
-        );
-        return true;
+        console.log("🚀 ~ ~ onPanResponderMove", evt, gestureState);
+        // return Animated.event([null, { dx: PanObj.x, dy: PanObj.y }]);
+        // return true;
       },
       // The most recent move distance is gestureState.move{X,Y}
       // The accumulated gesture distance since becoming responder is
       // gestureState.d{x,y}
-      onPanResponderTerminationRequest: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-          gestureState
-        );
-        return true;
-      },
+      // onPanResponderTerminationRequest: (evt, gestureState) => {
+      //   console.log(
+      //     "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
+      //     gestureState
+      //   );
+      //   return true;
+      // },
       onPanResponderRelease: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-          gestureState
-        );
+        PanObj.flattenOffset();
+        setOpen(false);
+
+        console.log("🚀 ~onPanResponderRelease", evt, gestureState);
         return true;
       },
       // The user has released all touches while this view is the
       // responder. This typically means a gesture has succeeded
-
       onPanResponderTerminate: (evt, gestureState) => {
         console.log(
           "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
           gestureState
         );
         return true;
-      },
-      onShouldBlockNativeResponder: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-          gestureState
-        );
-        return true;
       }
+      // onShouldBlockNativeResponder: (evt, gestureState) => {
+      //   console.log(
+      //     "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
+      //     gestureState
+      //   );
+      //   return true;
+      // }
     })
   ).current;
-
+  console.log("render");
   return (
     <>
       <View>
         <TouchableOpacity>
-          <View
-            style={classes.button}
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-            onMouseDown={onTouchStart}
-            onMouseUp={onTouchEnd}
-            // {...panResponder.panHandlers}
-          >
+          <View style={classes.button} {...panResponder.panHandlers}>
             <Text style={classes.buttonText}>{categoryName}</Text>
           </View>
           {open && (

@@ -44,12 +44,7 @@ const PickerItem: FC<Props> = ({
 
   return (
     <>
-      <View
-        style={classes.container}
-        onMouseUp={handleMouseUp}
-        onTouchMove={handleStart}
-        onTouchEnd={onTouchEnd}
-      >
+      <View style={classes.container}>
         <Text>{item.name}</Text>
       </View>
     </>
