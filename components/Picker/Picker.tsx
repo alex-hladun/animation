@@ -146,10 +146,10 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
         <TouchableOpacity>
           <View
             style={classes.button}
-            // onTouchStart={onTouchStart}
-            // onTouchEnd={onTouchEnd}
-            // onMouseDown={onTouchStart}
-            // onMouseUp={onTouchEnd}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            onMouseDown={onTouchStart}
+            onMouseUp={onTouchEnd}
             // {...panResponder.panHandlers}
           >
             <Text style={classes.buttonText}>{categoryName}</Text>

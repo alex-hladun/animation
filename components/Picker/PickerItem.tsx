@@ -32,7 +32,6 @@ const PickerItem: FC<Props> = ({
   index,
   onTouchEnd
 }: Props) => {
-
   // const classes = useStyles();
 
   const handleMouseUp = () => {
@@ -47,9 +46,9 @@ const PickerItem: FC<Props> = ({
     <>
       <View
         style={classes.container}
-        // onMouseUp={handleMouseUp}
-        // onTouchMove={handleStart}
-        // onTouchEnd={onTouchEnd}
+        onMouseUp={handleMouseUp}
+        onTouchMove={handleStart}
+        onTouchEnd={onTouchEnd}
       >
         <Text>{item.name}</Text>
       </View>

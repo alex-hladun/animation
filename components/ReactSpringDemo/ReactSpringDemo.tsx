@@ -2,19 +2,18 @@ import React, { useState, useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { createStyles, Theme, makeStyles } from "@material-ui/core";
 import { useSpring, animated, config, to } from "react-spring";
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import EditScreenInfo from "./EditScreenInfo";
+import { Text, View } from "../Themed";
 import { RootTabScreenProps } from "../types";
-import NumberEntry from "../components/NumberEntry/NumberEntry";
-import Picker from "../components/Picker";
-import { BudgetCategory } from "../components/Picker/Picker";
+import NumberEntry from "./NumberEntry/NumberEntry";
+import Picker from "./Picker";
+import { BudgetCategory } from "./Picker/Picker";
 
 const classes = {
-    amount: {
-      fontSize: 50
-    }
-  })
-);
+  amount: {
+    fontSize: 50
+  }
+};
 
 const intial = {
   color: "rgb(255, 0, 0)"
@@ -84,7 +83,6 @@ const discretionaryList: BudgetCategory[] = [
   }
 ];
 const ReactSpringDemo = () => {
-  const classes = useStyles();
   const [colorFlip, setColorFlip] = useState(false);
   const [endNumber, setEndNumber] = useState(100);
 
@@ -138,8 +136,8 @@ const ReactSpringDemo = () => {
         <animated.span style={classes.amount} style={{ color }}>
           {number.to((n) => n.toFixed(0))}
         </animated.span>
-      </div>
-    </div>
+      </View>
+    </View>
   );
 };
 export default ReactSpringDemo;

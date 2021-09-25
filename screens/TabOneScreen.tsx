@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
-
+import { useEffect } from "react";
 import { StyleSheet, PanResponder } from "react-native";
 import { createStyles, Theme, makeStyles } from "@material-ui/core";
 import { useSpring, animated, config, to } from "react-spring";
@@ -10,7 +10,6 @@ import NumberEntry from "../components/NumberEntry/NumberEntry";
 import Picker from "../components/Picker";
 import { BudgetCategory } from "../components/Picker/Picker";
 import ReactSpringDemo from "../components/ReactSpringDemo";
-import { useEffect } from "react-transition-group/node_modules/@types/react";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -96,8 +95,8 @@ export default function TabOneScreen({
 
   return (
     <View style={styles.container} {...tR?.panHandlers}>
-      {/* <ReactSpringDemo /> */}
-      <Picker list={discretionaryList} categoryName="Discretionary" />
+      <ReactSpringDemo />
+      {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
       {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
       {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
       {/* <NumberEntry /> */}
