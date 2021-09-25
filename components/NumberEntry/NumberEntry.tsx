@@ -1,22 +1,15 @@
 import React, { useState, useMemo } from "react";
-import {
-  createStyles,
-  Theme,
-  makeStyles,
-  Input,
-  Typography
-} from "@material-ui/core";
+import { TextInput, View } from "react-native";
+import { createStyles, Theme, makeStyles, Input } from "@material-ui/core";
+import { Text } from "../Themed";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    number: {
-      fontSize: 50
-    }
-  })
-);
+const classes = {
+  number: {
+    fontSize: 50
+  }
+};
 
 const NumberEntry = () => {
-  const classes = useStyles();
   const [amount, setAmount] = useState();
   const [endNumber, setEndNumber] = useState(100);
 
@@ -43,7 +36,7 @@ const NumberEntry = () => {
     return { start, end };
   }, [amount]);
   return (
-    <div
+    <View
       style={{
         display: "flex",
         justifyContent: "space-evenly",
@@ -52,13 +45,13 @@ const NumberEntry = () => {
         height: "100%"
       }}
     >
-      <div>
-        <Input value={amount} onChange={onChangeAmount} type="number" />
-        <Typography className={classes.number}>
+      <View>
+        <TextInput value={amount} onChange={onChangeAmount} type="number" />
+        <Text style={classes.number}>
           ${start}.{end}
-        </Typography>
-      </div>
-    </div>
+        </Text>
+      </View>
+    </View>
   );
 };
 export default NumberEntry;

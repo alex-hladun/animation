@@ -1,30 +1,24 @@
-import React, { useState, useMemo, FC, Dispatch } from "react";
-import {
-  createStyles,
-  Theme,
-  makeStyles,
-  Input,
-  Typography
-} from "@material-ui/core";
-
+import React, { FC, useRef } from "react";
 import { SetStateAction } from "react-transition-group/node_modules/@types/react";
-import theme from "../../assets/theme";
+import theme from "../../assets/ColorTheme/ColorTheme";
+import { Text } from "../Themed";
+import {
+  View,
+  StyleSheet,
+  Touchable,
+  Pressable,
+  PanResponder
+} from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    container: {
-      backgroundColor: theme.main.cream,
-      diplay: "flex",
-      justifyContent: "center",
-      // border: `1px solid ${theme.main.darkBlue}`,
-      padding: 10,
-      "&:hover": {
-        backgroundColor: theme.main.greyBlue
-      },
-      userSelect: "none"
-    }
-  })
-);
+const classes = StyleSheet.create({
+  container: {
+    backgroundColor: theme.main.cream,
+    display: "flex",
+    justifyContent: "center",
+    padding: 10
+  }
+});
 
 interface Props {
   item: { name: string };
@@ -38,18 +32,27 @@ const PickerItem: FC<Props> = ({
   index,
   onTouchEnd
 }: Props) => {
-  const classes = useStyles();
+
+  // const classes = useStyles();
 
   const handleMouseUp = () => {
+    console.log("hello");
     onTouchEnd();
     setSelectedItem(item);
   };
 
+  const handleStart = (event) => console.log(event);
+
   return (
     <>
-      <div className={classes.container} onMouseUp={handleMouseUp}>
-        <Typography>{item.name}</Typography>
-      </div>
+      <View
+        style={classes.container}
+        // onMouseUp={handleMouseUp}
+        // onTouchMove={handleStart}
+        // onTouchEnd={onTouchEnd}
+      >
+        <Text>{item.name}</Text>
+      </View>
     </>
   );
 };

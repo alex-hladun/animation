@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import React, { useState, useMemo, useRef } from "react";
+
+import { StyleSheet, PanResponder } from "react-native";
 import { createStyles, Theme, makeStyles } from "@material-ui/core";
 import { useSpring, animated, config, to } from "react-spring";
 import EditScreenInfo from "../components/EditScreenInfo";
@@ -9,6 +10,7 @@ import NumberEntry from "../components/NumberEntry/NumberEntry";
 import Picker from "../components/Picker";
 import { BudgetCategory } from "../components/Picker/Picker";
 import ReactSpringDemo from "../components/ReactSpringDemo";
+import { useEffect } from "react-transition-group/node_modules/@types/react";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
@@ -19,63 +21,86 @@ const discretionaryList: BudgetCategory[] = [
     id: "23"
   },
   {
-    name: "Liquor - Stores",
+    name: "Liquor",
     value: 2,
     id: "232"
   },
-  { name: "Liquor - Bars", value: 2, id: "232333s" },
   {
     name: "Sports / Yoga",
     value: 2,
     id: "23d23333"
   },
-  {
-    name: "MM",
-    value: 2,
-    id: "23233"
-  },
-  {
-    name: "VP",
-    value: 2,
-    id: "23233"
-  },
+
   {
     name: "Online Subscriptions",
     value: 2,
-    id: "23233"
+    id: "2323sa3"
   },
   {
     name: "Gym",
     value: 2,
-    id: "23233"
+    id: "23fe233"
   },
   {
     name: "Clothing",
     value: 2,
-    id: "23233"
+    id: "232qef33"
   },
   {
     name: "Haircuts",
     value: 2,
-    id: "23233"
-  },
-  {
-    name: "Dates",
-    value: 2,
-    id: "23233"
+    id: "23sv233"
   }
 ];
 
 export default function TabOneScreen({
   navigation
 }: RootTabScreenProps<"TabOne">) {
+  const [tR, setTR] = useState();
+
+  useEffect(() => {
+    const prr = PanResponder.create({
+      // Ask to be the responder:
+      onStartShouldSetPanResponder: (evt, gestureState) => {
+        console.log(
+          "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
+          gestureState
+        );
+        return false;
+      },
+      // onStartShouldSetPanResponderCapture: (evt, gestureState) => {
+      //   console.log(
+      //     "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
+      //     gestureState
+      //   );
+      //   return true;
+      // },
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        console.log(
+          "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
+          gestureState
+        );
+        return true;
+
+        // onPanResponderMove: (evt, gestureState) => {
+        //   console.log(
+        //     "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
+        //     gestureState
+        //   );
+        //   return true;
+        // }
+      }
+    });
+    setTR(prr);
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...tR?.panHandlers}>
       {/* <ReactSpringDemo /> */}
       <Picker list={discretionaryList} categoryName="Discretionary" />
       {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
       {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
-      <NumberEntry />
+      {/* <NumberEntry /> */}
     </View>
   );
 }

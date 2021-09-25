@@ -9,8 +9,7 @@ import NumberEntry from "../components/NumberEntry/NumberEntry";
 import Picker from "../components/Picker";
 import { BudgetCategory } from "../components/Picker/Picker";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const classes = {
     amount: {
       fontSize: 50
     }
@@ -114,7 +113,7 @@ const ReactSpringDemo = () => {
   });
 
   return (
-    <div
+    <View
       style={{
         display: "flex",
         justifyContent: "space-evenly",
@@ -123,20 +122,20 @@ const ReactSpringDemo = () => {
         height: "100%"
       }}
     >
-      <div>
+      <View>
         <button onClick={() => setEndNumber(500)}>$500</button>
         <button onClick={() => setEndNumber(400)}>$400</button>
         <button onClick={() => setEndNumber(300)}>$300</button>
         <button onClick={() => setEndNumber(200)}>$200</button>
         <button onClick={() => setEndNumber(100)}>$100</button>
         <button onClick={() => setEndNumber(0)}>$0</button>
-      </div>
-      <div>
+      </View>
+      <View>
         <animated.div style={{ height, backgroundColor: color, width: 300 }} />
-        <animated.span className={classes.amount} style={{ color }}>
+        <animated.span style={classes.amount} style={{ color }}>
           $
         </animated.span>
-        <animated.span className={classes.amount} style={{ color }}>
+        <animated.span style={classes.amount} style={{ color }}>
           {number.to((n) => n.toFixed(0))}
         </animated.span>
       </div>
