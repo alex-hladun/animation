@@ -58,8 +58,8 @@ export default function TabOneScreen({
   return (
     <View style={styles.container}>
       {/* <ReactSpringDemo /> */}
-      <Picker list={discretionaryList} categoryName="Discretionary" />
-      {/* <NumberEntry /> */}
+      {/* <Picker list={discretionaryList} categoryName="Discretionary" /> */}
+      <NumberEntry />
     </View>
   );
 }

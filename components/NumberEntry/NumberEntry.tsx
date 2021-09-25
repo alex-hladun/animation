@@ -46,7 +46,12 @@ const NumberEntry = () => {
       }}
     >
       <View>
-        <TextInput value={amount} onChange={onChangeAmount} type="number" />
+        <TextInput
+          value={amount}
+          style={{ backgroundColor: "red" }}
+          onChange={onChangeAmount}
+          type="number"
+        />
         <Text style={classes.number}>
           ${start}.{end}
         </Text>

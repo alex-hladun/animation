@@ -1,5 +1,4 @@
 import React, { useState, FC, useRef } from "react";
-
 import PickerItem from "./PickerItem";
 import ColorTheme from "../../assets/ColorTheme/";
 import { Text } from "../Themed";
@@ -58,7 +57,6 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
 
   const panResponder = useRef(
     PanResponder.create({
-      // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => {
         console.log(
           "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
@@ -66,55 +64,18 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
         );
         return true;
       },
-      // onStartShouldSetPanResponderCapture: (evt, gestureState) => {
-      //   console.log(
-      //     "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-      //     gestureState
-      //   );
-      //   return true;
-      // },
+
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         console.log("🚀 ~ fonMoveShouldSetPanRespondere", gestureState);
         return true;
       },
-      // onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-      //   console.log(
-      //     "🚀 ~ file: Picker.tsx ~ line 59 ~ gestureState",
-      //     gestureState
-      //   );
-      //   return true;
-      // },
-
       onPanResponderGrant: (evt, gestureState) => {
         console.log("🚀 ~ onPanResponderGrant", gestureState);
         setOpen(true);
-        // return true;
-
-        // The gesture has started. Show visual feedback so the user knows
-        // what is happening!
-        // gestureState.d{x,y} will be set to zero now
       },
       onPanResponderMove: (evt, gestureState) => {
-        console.log(
-          "🚀 ~ ~ onPanResponderMove",
-          // evt,
-          // gestureState,
-
-          setHoverCategory(evt.target.textContent)
-        );
-        // return Animated.event([null, { dx: PanObj.x, dy: PanObj.y }]);
-        // return true;
+        setHoverCategory(evt.target.textContent);
       },
-      // The most recent move distance is gestureState.move{X,Y}
-      // The accumulated gesture distance since becoming responder is
-      // gestureState.d{x,y}
-      // onPanResponderTerminationRequest: (evt, gestureState) => {
-      //   console.log(
-      //     "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-      //     gestureState
-      //   );
-      //   return true;
-      // },
       onPanResponderRelease: (evt, gestureState) => {
         setSelectedItem(evt.target.textContent);
         setOpen(false);
@@ -132,10 +93,6 @@ const Picker: FC<Props> = ({ list, categoryName }: Props) => {
         return true;
       }
       // onShouldBlockNativeResponder: (evt, gestureState) => {
-      //   console.log(
-      //     "🚀 ~ file: Picker.tsx ~ line 88 ~ gestureState",
-      //     gestureState
-      //   );
       //   return true;
       // }
     })
